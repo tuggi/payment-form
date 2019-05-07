@@ -34,24 +34,16 @@ function setHandlers() {
     $(widgets.PaymentFormWidget.getSubmitButton()).on("click tap", function() { 
         // var formData = new FormData();
         var data = "";
-        var dataConcat = "";
-        var keys = Object.keys(widgets.PaymentFormWidget.getData());
-        console.log(keys);
-        var values = Object.values(widgets.PaymentFormWidget.getData());
-        console.log(values);
-        for (var key of keys) {
-            for (var value of values) {
-                if(value) {
-                    dataConcat = key + "=\"" + value + "\",";
-                    data += dataConcat
-                } else if(value === ""){
-                    dataConcat = key + "=,";
-                    data += dataConcat
-                }
+        var dataObject = widgets.PaymentFormWidget.getData();
+        for (var [key, value] of Object.entries(dataObject)) {
+            if(value) {
+                data += key + "=\"" + value + "\",";
+            } else {
+                data += key + "=,";
             }
         }
+        data = data.slice(0, -1);
         console.log(data);
-
     });
 }
 
