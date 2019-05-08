@@ -75,10 +75,12 @@ function sendRequest(data) {
         contentType: false,
         type: 'POST',
         success: function(data){
-            alert(data);
+            console.log(data);
+            window.location = "https://testsecureacceptance.cybersource.com/checkout";
+            // $("body").html(data);
         },
         error: function(error) {
-            console.log(error);
+            console.log("error", error);
         }
     });
 }
