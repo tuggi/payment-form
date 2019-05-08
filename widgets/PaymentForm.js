@@ -23,6 +23,7 @@ var PaymentForm = function()  {
         amount: null,
         currency: null,
 
+        // submit: null,
         signature: null
     }
 
@@ -30,27 +31,64 @@ var PaymentForm = function()  {
     initialize();
 
     function initialize() {
+        var transactionTypeLabel = document.createElement("label");
+        $(transactionTypeLabel).text("Transaction Type: ");
+        $(transactionTypeLabel).addClass("transactionTypeLabel");
+
         var transactionType = global.transaction_type = document.createElement("select");
         generateOptions(transactionType, "Transaction type");
         $(transactionType).addClass("transactionType");
 
-        var referenceNumber = global.reference_number = document.createElement("input");
+        var transactionTypeContainer = document.createElement("div");
+        $(transactionTypeContainer).append(transactionTypeLabel);
+        $(transactionTypeContainer).append(transactionType);
+        $(transactionTypeContainer).addClass("fieldContainer");
+
+        var referenceNumberLabel = document.createElement("label");
+        $(referenceNumberLabel).text("Reference Number: ");
+        $(referenceNumberLabel).addClass("referenceNumberLabel");
+
+        var referenceNumber = global.reference_number = document.createElement("label");
         $(referenceNumber).addClass("transactionType");
 
-        var amount = global.amount = document.createElement("input");
+        var referenceNumberContainer = document.createElement("div");
+        $(referenceNumberContainer).append(referenceNumberLabel);
+        $(referenceNumberContainer).append(referenceNumber);
+        $(referenceNumberContainer).addClass("fieldContainer");
+
+        var amountLabel = document.createElement("label");
+        $(amountLabel).text("Amount: ");
+        $(amountLabel).addClass("amountLabel");
+
+        var amount = global.amount = document.createElement("label");
         $(amount).addClass("transactionType");
 
-        var currency = global.currency = document.createElement("input");
+        var amountContainer = document.createElement("div");
+        $(amountContainer).append(amountLabel);
+        $(amountContainer).append(amount);
+        $(amountContainer).addClass("fieldContainer");
+
+        var currencyLabel = document.createElement("label");
+        $(currencyLabel).text("Currency: ");
+        $(currencyLabel).addClass("currencyLabel");
+
+        var currency = global.currency = document.createElement("label");
         $(currency).addClass("transactionType");
+
+        var currencyContainer = document.createElement("div");
+        $(currencyContainer).append(currencyLabel);
+        $(currencyContainer).append(currency);
+        $(currencyContainer).addClass("fieldContainer");
         
         var submitBtn = global.submitBtn = document.createElement("button");
+        $(submitBtn).text("submit");
         $(submitBtn).addClass("submitBtn");
 
         var wrapper = global.wrapper = document.createElement("div");
-        $(wrapper).append(transactionType);
-        $(wrapper).append(referenceNumber);
-        $(wrapper).append(amount);
-        $(wrapper).append(currency);
+        $(wrapper).append(transactionTypeContainer);
+        $(wrapper).append(referenceNumberContainer);
+        $(wrapper).append(amountContainer);
+        $(wrapper).append(currencyContainer);
         $(wrapper).append(submitBtn);
         $(wrapper).addClass("wrapper");
     }
@@ -73,9 +111,14 @@ var PaymentForm = function()  {
         $(invoiceOptn).text("Invoice");
         $(invoiceOptn).val("Invoice");
 
+        var saleOptn = document.createElement("option");
+        $(saleOptn).text("Sale");
+        $(saleOptn).val("sale");
+
         $(select).append(placeholder);
         $(select).append(creditCardOptn);
         $(select).append(invoiceOptn);
+        $(select).append(saleOptn);
     }
 
     function constructor() {
@@ -86,11 +129,7 @@ var PaymentForm = function()  {
         data.unsigned_field_names = "";
         data.signed_date_time = new Date().toISOString().split(".").shift() + "Z";
         data.locale = "en";
-
-        // data.transaction_type = data.transaction_type.val();
-        // data.reference_number = data.reference_number.val();
-        // data.amount = data.amount.val();
-        // data.currency = data.currency.val();
+        // data.submit = "Submit";
     }
 
     function generateUniqid() {
