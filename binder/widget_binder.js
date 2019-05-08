@@ -46,10 +46,17 @@ function setHandlers() {
                 data += key + "=,";
             }
         }
+       
         data = data.slice(0, -1).split(",signature").shift(); 
         // data = data.slice(0, -1).split(",submit").shift(); 
-        encrypt(data);
-        sendRequest(dataObject)
+        if($('input[name=paymentMode]:checked').val() == "Credit Card") {
+            encrypt(data);
+            sendRequest(dataObject)
+        } else if ($('input[name=paymentMode]:checked').val() == "Invoice"){
+            alert("Invoice picked");
+        } else {
+            // alert("None picked");
+        }
         console.log(data);
     });
 }

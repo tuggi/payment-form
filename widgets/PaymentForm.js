@@ -79,7 +79,10 @@ var PaymentForm = function()  {
         $(currencyContainer).append(currencyLabel);
         $(currencyContainer).append(currency);
         $(currencyContainer).addClass("fieldContainer");
-        
+
+        var radioCC = generateRadio("Credit Card");
+        var radioInvoice = generateRadio("Invoice");
+
         var submitBtn = global.submitBtn = document.createElement("button");
         $(submitBtn).text("submit");
         $(submitBtn).addClass("submitBtn");
@@ -89,8 +92,30 @@ var PaymentForm = function()  {
         $(wrapper).append(referenceNumberContainer);
         $(wrapper).append(amountContainer);
         $(wrapper).append(currencyContainer);
+        $(wrapper).append(radioCC);
+        $(wrapper).append(radioInvoice);
         $(wrapper).append(submitBtn);
         $(wrapper).addClass("wrapper");
+    }
+
+    function generateRadio(label) {
+        var radio = document.createElement("input");
+        $(radio).attr({
+            type: "radio",
+            name: "paymentMode",
+            value: label
+        });
+        $(radio).addClass("radio");
+        
+        var radioLabel = document.createElement("label");
+        $(radioLabel).text(label);
+        $(radioLabel).addClass("radioLabel");
+
+        var wrapper = document.createElement("div");
+        $(wrapper).append(radio);
+        $(wrapper).append(radioLabel);
+        $(wrapper).addClass("radioContainer");
+        return wrapper;
     }
 
     function generateOptions(select, placeholderText) {
@@ -103,21 +128,16 @@ var PaymentForm = function()  {
         $(placeholder).text(placeholderText);
         $(placeholder).val("");
 
-        var creditCardOptn = document.createElement("option");
-        $(creditCardOptn).text("Credit Card");
-        $(creditCardOptn).val("Credit Card");
-
-        var invoiceOptn = document.createElement("option");
-        $(invoiceOptn).text("Invoice");
-        $(invoiceOptn).val("Invoice");
+        var authorizationOptn = document.createElement("option");
+        $(authorizationOptn).text("Authorization");
+        $(authorizationOptn).val("authorization");
 
         var saleOptn = document.createElement("option");
         $(saleOptn).text("Sale");
         $(saleOptn).val("sale");
 
         $(select).append(placeholder);
-        $(select).append(creditCardOptn);
-        $(select).append(invoiceOptn);
+        $(select).append(authorizationOptn);
         $(select).append(saleOptn);
     }
 
